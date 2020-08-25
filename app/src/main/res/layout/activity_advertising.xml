@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="adViewModel"
+            type="com.papa.signature.viewmodel.AdViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#DCDFE6"
+        android:orientation="vertical"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <TextView
+                android:id="@+id/apptitle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:background="#ffffff"
+                android:textColor="#FF303133"
+                android:textSize="20sp"
+                />
+
+            <ImageView
+                android:id="@+id/deviceInfoBtn"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20dp"
+                android:src="@mipmap/icon_info_device" />
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_centerInParent="true"
+            android:layout_height="match_parent"
+            android:layout_margin="25dp"
+            android:orientation="vertical"
+            android:background="#ffffff">
+            <TextView
+                android:id="@+id/adTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="广告标题"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#FF303133"
+                android:textSize="26sp"
+                />
+            <com.youth.banner.Banner
+                android:id="@+id/banner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                 android:layout_margin="25dp"
+                app:indicator_drawable_selected="@drawable/icon_zsq_s"
+                app:indicator_drawable_unselected="@drawable/icon_zsq_n"
+                app:indicator_height="10dp"
+                app:indicator_margin="6dp"
+                app:indicator_width="10dp"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true" />
+
+        </LinearLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="50dp"
+            android:visibility="gone"
+            android:onClick="@{()->adViewModel.setBooelan()}"
+            android:text="查看更多数据"
+            android:textSize="20sp" />
+    </LinearLayout>
+</layout>
