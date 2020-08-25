@@ -23,8 +23,26 @@ public class MessageBody {
     private String card_leave;
     private String date;
     private String des;
-    private String token;
+    private String Authorization;
     private String agreement_id;
+    private String business_id;
+    private String trade_type_id;
+
+    public String getBusiness_id() {
+        return business_id;
+    }
+
+    public void setBusiness_id(String business_id) {
+        this.business_id = business_id;
+    }
+
+    public String getTrade_type_id() {
+        return trade_type_id;
+    }
+
+    public void setTrade_type_id(String trade_type_id) {
+        this.trade_type_id = trade_type_id;
+    }
 
     public String getName() {
         return name;
@@ -74,12 +92,12 @@ public class MessageBody {
         this.des = des;
     }
 
-    public String getToken() {
-        return token;
+    public String getAuthorization() {
+        return Authorization;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAuthorization(String authorization) {
+        this.Authorization = authorization;
     }
 
     public String getAgreement_id() {

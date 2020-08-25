@@ -1,29 +1,21 @@
 package com.papa.signature.model.remote;
 
-import com.papa.signature.model.ADBean;
 import com.papa.signature.model.ADRes;
 import com.papa.signature.model.PictureRes;
 import com.papa.signature.model.ProtocolRes;
-import com.papa.signature.model.ResponseBean;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.http.Field;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
-import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
-import retrofit2.http.PartMap;
 import retrofit2.http.QueryMap;
 
 /**
@@ -42,7 +34,7 @@ public interface PAPAServiceAPI {
      * @param parts
      * @return
      */
-    @POST("api/img/uploader/dir/agreement")
+    @POST("base/images/upload")
     @Multipart
     Observable<PictureRes> uploadFile(@Header("cookie") String cookie, @QueryMap Map<String, String> map, @Part List<MultipartBody.Part> parts);
 
@@ -50,12 +42,13 @@ public interface PAPAServiceAPI {
     /**
      * 获取协议内容
      *
+     * @param authorization
      * @param maps
      * @return
      */
     @FormUrlEncoded
     @POST("setting/stadiumConfig/getProtocolConf")
-    Observable<ProtocolRes> getProtoolConf(@FieldMap Map<String, Object> maps);
+    Observable<ProtocolRes> getProtoolConf(@Header("Authorization") String authorization, @FieldMap Map<String, Object> maps);
 
 
     /**
@@ -65,7 +58,7 @@ public interface PAPAServiceAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("member/agreement/update")
+    @POST("member/memberCard/addAgreementImages")
     Observable<ResponseBody> update(@FieldMap Map<String, Object> maps);
 
 
@@ -75,6 +68,6 @@ public interface PAPAServiceAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("electronicScreen/Banner/listByScreen")
+    @POST("device/adBanner/list")
     Observable<ADRes> getAd(@FieldMap Map<String, Object> maps);
 }

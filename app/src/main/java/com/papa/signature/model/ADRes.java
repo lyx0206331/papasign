@@ -17,50 +17,40 @@ public class ADRes {
      * list : [{"banner_id":"1","id":"1","stadium_id":"100004","u_time":"1569546982","c_time":"1569546982","status":"1","name":"cs","screen_id":"2b8be5f94e5d073c","images_src":"/","business_id":"100001"}]
      */
 
-    private String return_code;
-    private String stadium_name;
-    private boolean is_error;
-    private List<ADBean> list;
+    private String code;
+    private String message;
+    private List<ADBean> data;
 
-    public String getStadium_name() {
-        return stadium_name;
+    public String getMessage() {
+        return message;
     }
 
-    public void setStadium_name(String stadium_name) {
-        this.stadium_name = stadium_name;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getReturn_code() {
-        return return_code;
+    public String getCode() {
+        return code;
     }
 
-    public void setReturn_code(String return_code) {
-        this.return_code = return_code;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public boolean isIs_error() {
-        return is_error;
+    public List<ADBean> getData() {
+        return data;
     }
 
-    public void setIs_error(boolean is_error) {
-        this.is_error = is_error;
-    }
-
-    public List<ADBean> getList() {
-        return list;
-    }
-
-    public void setList(List<ADBean> list) {
-        this.list = list;
+    public void setData(List<ADBean> data) {
+        this.data = data;
     }
 
     @Override
     public String toString() {
         return "ADRes{" +
-                "return_code='" + return_code + '\'' +
-                ", stadium_name='" + stadium_name + '\'' +
-                ", is_error=" + is_error +
-                ", list=" + list +
+                "code='" + code + '\'' +
+                ", message'" + message + '\'' +
+                ", data=" + data +
                 '}';
     }
 }

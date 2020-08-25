@@ -1,6 +1,5 @@
 package com.papa.signature.view.ui;
 
-import android.annotation.TargetApi;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -10,21 +9,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.SyncStateContract;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -39,25 +34,18 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.papa.signature.R;
-import com.papa.signature.model.Config;
 import com.papa.signature.model.MessageBody;
 import com.papa.signature.model.PictureRes;
 import com.papa.signature.model.ProtocolRes;
 import com.papa.signature.model.remote.BaseObserver;
 import com.papa.signature.utils.CreateBitmatUtils;
-import com.papa.signature.utils.RetrofitUtil;
+import com.papa.signature.utils.ExampleUtil;
 import com.papa.signature.utils.RetrofitUtil002;
 import com.papa.signature.utils.RetrofitUtil003;
 import com.papa.signature.views.SignatureView;
 
 import org.json.JSONObject;
-import org.xutils.common.Callback;
-import org.xutils.common.util.KeyValue;
-import org.xutils.common.util.LogUtil;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -120,9 +108,10 @@ public class SignaTureActivity extends AppCompatActivity {
      */
     private void getProtocol() {
         Map<String, Object> map = new HashMap<>();
-        map.put("option_code", "wx_opencard_protocol");
-        map.put("token", messageBody.getToken());
-        RetrofitUtil002.getInstance().getAutoAPIService().getProtoolConf(map)
+        map.put("business_idbusiness_id", messageBody.getBusiness_id());
+        map.put("trade_type_id", messageBody.getTrade_type_id());
+//        map.put("Authorization", messageBody.getAuthorization());
+        RetrofitUtil002.getInstance().getAutoAPIService().getProtoolConf("Authorization=" + messageBody.getAuthorization(), map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<ProtocolRes>(SignaTureActivity.this) {
@@ -148,7 +137,7 @@ public class SignaTureActivity extends AppCompatActivity {
         Gson gson = new Gson();
         if (message.length() > 0) {
             messageBody = gson.fromJson(message, MessageBody.class);
-            cookie = "token=" + messageBody.getToken() + ";stadium_id=1";
+            cookie = "token=" + messageBody.getAuthorization() + ";stadium_id=1";
             cardNo = findViewById(R.id.cardNo);
             cardNo.setText("卡号:" + messageBody.getCard_num());
             crateCardName = findViewById(R.id.crateCardName);
@@ -437,7 +426,8 @@ public class SignaTureActivity extends AppCompatActivity {
     public void update() {
         Map<String, Object> map = new HashMap<>();
         map.put("agreement_id", messageBody.getAgreement_id());
-        map.put("token", messageBody.getToken());
+//        map.put("token", messageBody.getToken());
+        map.put("device_id", ExampleUtil.getDeviceId(this));
         map.put("images", images);
         map.put("signature", signature);
         RetrofitUtil002.getInstance().getAutoAPIService().update(map).observeOn(AndroidSchedulers.mainThread())
@@ -472,6 +462,7 @@ public class SignaTureActivity extends AppCompatActivity {
          */
         progress.setVisibility(View.GONE);
         CountDownTimer timer = new CountDownTimer(5000, 1000) {
+            @Override
             public void onTick(long millisUntilFinished) {
                 Message message = new Message();
                 message.what = 0;
@@ -479,6 +470,7 @@ public class SignaTureActivity extends AppCompatActivity {
                 handler.sendMessage(message);
             }
 
+            @Override
             public void onFinish() {
                 if (popupWindow != null && popupWindow.isShowing()) {
                     popupWindow.dismiss();

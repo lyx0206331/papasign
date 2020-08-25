@@ -1,45 +1,34 @@
 package com.papa.signature;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.viewpager.widget.ViewPager;
-
 import android.Manifest;
-import android.app.Person;
 import android.content.BroadcastReceiver;
-import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.hardware.usb.UsbDevice;
-import android.hardware.usb.UsbManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.Parcel;
 import android.provider.Settings;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.viewpager.widget.ViewPager;
+
 import com.jaeger.library.StatusBarUtil;
 import com.papa.signature.databinding.ActivityAdvertisingBinding;
 import com.papa.signature.model.ADBean;
 import com.papa.signature.model.ADRes;
 import com.papa.signature.model.remote.BaseObserver;
-import com.papa.signature.receiver.TagAliasOperatorHelper;
 import com.papa.signature.utils.ExampleUtil;
 import com.papa.signature.utils.RetrofitUtil002;
 import com.papa.signature.view.ui.DeviceInfoActivity;
@@ -49,9 +38,7 @@ import com.papa.signature.views.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -63,7 +50,6 @@ import cn.jpush.android.api.JPushInterface;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import me.goldze.mvvmhabit.base.BaseActivity;
-import okhttp3.ResponseBody;
 
 public class AdvertisingActivity extends BaseActivity<ActivityAdvertisingBinding, AdViewModel> {
     public static boolean isForeground = false;
@@ -109,7 +95,7 @@ public class AdvertisingActivity extends BaseActivity<ActivityAdvertisingBinding
                     @Override
                     protected void onSuccees(ADRes res) throws Exception {
                         Log.i("URL", res.toString());
-                        List<ADBean> list = res.getList();
+                        List<ADBean> list = res.getData();
                         if (list != null && list.size() > 0) {
                             for (int i = 0; i < list.size(); i++) {
                                 images.add(list.get(i).getImages_src());
@@ -119,7 +105,7 @@ public class AdvertisingActivity extends BaseActivity<ActivityAdvertisingBinding
                         if (titles.size() > 0) {
                             adTitle.setText(titles.get(0));
                         }
-                        apptitle.setText(res.getStadium_name());
+                        apptitle.setText(res.getMessage());
                         intBanner();
                     }
 

@@ -1,0 +1,144 @@
+----------------------------------------------获得广告图----------------------------------------
+https://sd-api.papa.com.cn/electronicScreen/Banner/listByScreen
+
+{
+    "return_code": "SUCCESS",
+    "is_error": false,
+    "stadium_name": "奥林匹克体育-演示使用",
+    "list": [
+        {
+            "name": "威盛大厦",
+            "images": "img001/1/goods/2001/14/10/97/1a/10971a95b6bddce2ff9fc4e6efc81789.jpg",
+            "banner_id": "1",
+            "images_src": "http://img3.papa.com.cn/img001/1/goods/2001/14/10/97/1a/10971a95b6bddce2ff9fc4e6efc81789.jpg"
+        },
+        {
+            "name": "1308",
+            "images": "img001/1/ad/2005/13/5f/42/78/5f42781fd2ace60a8a855ee74aba196f.jpg",
+            "banner_id": "8",
+            "images_src": "http://img3.papa.com.cn/img001/1/ad/2005/13/5f/42/78/5f42781fd2ace60a8a855ee74aba196f.jpg"
+        }
+    ]
+}
+
+
+https://sd-api.papa.com.cn/device/banner/listByAgreementScreen
+
+{
+    "code": 200,
+    "message": "",
+    "data": [
+        {
+            "name": "威盛大厦",
+            "images": "img001/1/goods/2001/14/10/97/1a/10971a95b6bddce2ff9fc4e6efc81789.jpg",
+            "banner_id": "1",
+            "images_src": "http://img3.papa.com.cn/img001/1/goods/2001/14/10/97/1a/10971a95b6bddce2ff9fc4e6efc81789.jpg"
+        },
+        {
+            "name": "1308",
+            "images": "img001/1/ad/2005/13/5f/42/78/5f42781fd2ace60a8a855ee74aba196f.jpg",
+            "banner_id": "8",
+            "images_src": "http://img3.papa.com.cn/img001/1/ad/2005/13/5f/42/78/5f42781fd2ace60a8a855ee74aba196f.jpg"
+        }
+    ]
+}
+
+
+----------------------------------------------获得协议文本内容----------------------------------------
+https://sd-api.papa.com.cn/setting/stadiumConfig/getProtocolConf
+option_code:wx_opencard_protocol
+token:f014ceebe40b0f8daebb3e43b743968f
+{
+    "return_code": "SUCCESS",
+    "is_error": false,
+    "option_value": "<p>﻿**会员卡办理及使用协议</p>",
+    "option_code": "wx_opencard_protocol"
+}
+
+http://api.ppdev.fun:8180/cfg/cfgAgreement/detail
+Authorization:eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhaWQiOiIxMDEwMSIsImN0IjoiMTU5NzQwNTYxNiIsImlkIjoiMTU5NzQwNTYxNjM3OTkwNDYzNyIsIm1pZCI6IjMiLCJwYXJhbXMiOiJ7XCJhY2NvdW50X2lkXCI6MixcImFjY291bnRfdHlwZVwiOlwiMjFcIixcImNvbXBhbnlfaWRcIjoxLFwicGVyc29ubmVsX2lkXCI6Mn0iLCJ0aWQiOiIzIiwidG9rZW5FUyI6Ijc4ZmQ5Mzg4NjE3Yjg0ZjFhMDk3ZDQ2ZTEwMGYyMzBlIn0.3v1Ls7JZk0bRINaxSZs3UfdaI_BGZ-bp0Dltw21Lh9A
+business_id:10000001
+trade_type_id:1101
+(push传)
+{
+    "code": 200,
+    "data": {
+        "app_id": 10101,
+        "business_id": 10000001,
+        "c_time": 1593691286,
+        "id": 7,
+        "is_protocol": 0,
+        "protocol": "<p>开卡 一卡通协议</p>\n<p>888888</p>\n<p>9999999</p>\n<p>7777777777</p>\>\n<p>-----</p>",
+        "status": 1,
+        "title": "开卡-一卡通标题",
+        "trade_type_id": 1101,
+        "u_time": 1594610945
+    },
+    "message": "SUCCESS"
+}
+
+
+----------------------------------------------上传图片----------------------------------------
+https://sd.papa.com.cn/api/img/uploader/dir/agreement
+picname:
+qqfile:%E9%80%89%E5%8C%BA_002.jpg
+
+
+{
+    "code": 1,
+    "data": {
+        "imgPath": "img001/1/agreement/2008/15/5c/12/28/5c1228414e2020095d3074772a65295a.jpg",
+        "imgUrl": "https://img3.papa.com.cn/img001/1/agreement/2008/15/5c/12/28/5c1228414e2020095d3074772a65295a.jpg",
+        "imgSmallUrl": "https://img3.papa.com.cn/img001/1/agreement/2008/15/5c/12/28/5c1228414e2020095d3074772a65295a.jpg?w=100&h=100"
+    }
+}
+
+
+https://sd.papa.com.cn/base/images/upload
+{
+    "code":200,
+    "data":{
+        "imgPath":"images/member_avatar/20200815/673f50d432a0676783e6fdf41503ac99.jpg",
+        "imgUrl":"http://api.ppdev.fun:8180/images/member_avatar/20200815/673f50d432a0676783e6fdf41503ac99.jpg"
+    },
+    "message":"SUCCESS"
+}
+
+
+
+
+----------------------------------------------协议修改----------------------------------------
+https://sd.papa.com.cn/member/agreement/update
+agreement_id:120
+signature:https://img3.papa.com.cn/img001/1/agreement/2008/15/5c/12/28/5c1228414e2020095d3074772a65295a.jpg
+images:https://img3.papa.com.cn/img001/1/agreement/2008/15/5c/12/28/5c1228414e2020095d3074772a65295a.jpg
+token:f014ceebe40b0f8daebb3e43b743968f
+client_type:browser
+
+
+{
+    "return_code": "SUCCESS",
+    "is_error": false,
+    "0": 1
+}
+
+
+https://sd.papa.com.cn/member/memberCard/addAgreementImages
+agreement_id:120
+device_id:asdas7984
+signature:https://img3.papa.com.cn/img001/1/agreement/2008/15/5c/12/28/5c1228414e2020095d3074772a65295a.jpg
+images:https://img3.papa.com.cn/img001/1/agreement/2008/15/5c/12/28/5c1228414e2020095d3074772a65295a.jpg
+{
+    "code":200,
+    "data":{
+        "imgPath":"images/member_avatar/20200815/673f50d432a0676783e6fdf41503ac99.jpg",
+        "imgUrl":"http://api.ppdev.fun:8180/images/member_avatar/20200815/673f50d432a0676783e6fdf41503ac99.jpg"
+    },
+    "message":"SUCCESS"
+}
+
+
+
+
+
+
