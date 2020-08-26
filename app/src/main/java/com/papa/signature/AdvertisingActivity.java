@@ -89,6 +89,7 @@ public class AdvertisingActivity extends BaseActivity<ActivityAdvertisingBinding
     private void initAD() {
         Map<String, Object> map = new HashMap<>();
         map.put("screen_id", android_id);
+        Log.e("android_id", android_id);
         RetrofitUtil002.getInstance().getAutoAPIService().getAd(map).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseObserver<ADRes>(AdvertisingActivity.this) {

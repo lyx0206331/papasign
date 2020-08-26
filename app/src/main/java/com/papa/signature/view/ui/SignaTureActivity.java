@@ -108,16 +108,19 @@ public class SignaTureActivity extends AppCompatActivity {
      */
     private void getProtocol() {
         Map<String, Object> map = new HashMap<>();
-        map.put("business_idbusiness_id", messageBody.getBusiness_id());
+        map.put("business_id", messageBody.getBusiness_id());
         map.put("trade_type_id", messageBody.getTrade_type_id());
-//        map.put("Authorization", messageBody.getAuthorization());
         RetrofitUtil002.getInstance().getAutoAPIService().getProtoolConf("Authorization=" + messageBody.getAuthorization(), map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<ProtocolRes>(SignaTureActivity.this) {
                     @Override
                     protected void onSuccees(ProtocolRes res) throws Exception {
-                        proText.setText(Html.fromHtml(res.getOption_value()));
+                        if (res.getCode() == 200) {
+                            proText.setText(Html.fromHtml(res.getData().getProtocol()));
+                        } else {
+                            proText.setText(res.getMessage());
+                        }
                     }
 
                     @Override
@@ -378,7 +381,7 @@ public class SignaTureActivity extends AppCompatActivity {
             File file = files.get(i);
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
             //服务器上的文件参数  name   filename
-            MultipartBody.Part jokeFile = MultipartBody.Part.createFormData("qqfile", file.getName(), requestFile);
+            MultipartBody.Part jokeFile = MultipartBody.Part.createFormData("image_path", "member_agreement", requestFile);
             parts.add(jokeFile);
         }
         RetrofitUtil003.getInstance().getAutoAPIService().uploadFile(cookie, mapStr, parts)
