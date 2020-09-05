@@ -50,7 +50,8 @@
         android:supportsRtl="true"
         android:requestLegacyExternalStorage="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:networkSecurityConfig="@xml/network">
         <activity
             android:name=".AdvertisingActivity"
             android:launchMode="singleTop">

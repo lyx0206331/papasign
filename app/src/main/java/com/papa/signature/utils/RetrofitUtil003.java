@@ -3,8 +3,6 @@ package com.papa.signature.utils;
 import android.util.Log;
 
 import com.papa.signature.model.Config;
-import com.papa.signature.model.IpConfigBean;
-import com.papa.signature.model.local.IpCofigDao;
 import com.papa.signature.model.remote.PAPAServiceAPI;
 
 import java.io.IOException;
@@ -12,6 +10,7 @@ import java.io.IOException;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
@@ -38,6 +37,7 @@ public class RetrofitUtil003 {
         OkHttpClient okHttpClient = new OkHttpClient().newBuilder()
 //                .addNetworkInterceptor(logInterceptor)
 //                .addInterceptor(new RequestInterceptor())
+//                .addInterceptor(new HeaderIntercepter())
                 .addInterceptor(new LoggingInterceptor())//自定义拦截器
                 .build();
         retrofit = new Retrofit.Builder()
@@ -53,13 +53,13 @@ public class RetrofitUtil003 {
         if (retrofitUtil == null) {
             synchronized (RetrofitUtil003.class) {
                 if (null == retrofitUtil) {
-                    IpCofigDao ipCofigDao = IpCofigDao.getInstance();
-                    IpConfigBean ipConfigBean = ipCofigDao.selObject(1);
-                    if (ipConfigBean != null) {
-                        retrofitUtil = new RetrofitUtil003(ipConfigBean.getImgUrl());
-                    } else {
-                        retrofitUtil = new RetrofitUtil003(Config.BASEURLIMG);
-                    }
+//                    IpCofigDao ipCofigDao = IpCofigDao.getInstance();
+//                    IpConfigBean ipConfigBean = ipCofigDao.selObject(1);
+//                    if (ipConfigBean != null) {
+//                        retrofitUtil = new RetrofitUtil003(ipConfigBean.getImgUrl());
+//                    } else {
+                    retrofitUtil = new RetrofitUtil003(Config.BASEURLIMG);
+//                    }
 
                 }
             }
@@ -76,6 +76,19 @@ public class RetrofitUtil003 {
     public PAPAServiceAPI getAutoAPIService() {
         PAPAServiceAPI retrofitInterface = retrofit.create(PAPAServiceAPI.class);
         return retrofitInterface;
+    }
+
+    public static class HeaderIntercepter implements Interceptor {
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+
+            Request request = chain.request().newBuilder()
+                    .addHeader("Access-Control-Allow-Headers", "X-Token,token,authorization,X-CustomHeader,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type")
+                    .addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+                    .addHeader("Access-Control-Allow-Origin", "*").build();
+            return chain.proceed(request);
+        }
     }
 
     //自定义拦截器

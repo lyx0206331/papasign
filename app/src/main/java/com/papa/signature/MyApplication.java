@@ -17,9 +17,17 @@ import me.goldze.mvvmhabit.utils.KLog;
  * @createdate 2019/8/29 10:07
  */
 public class MyApplication extends Application {
+
+    private static MyApplication instance;
+
+    public static MyApplication getInstance() {
+        return instance;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        instance = this;
         JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this); // 初始化 JPush
         //是否开启日志打印

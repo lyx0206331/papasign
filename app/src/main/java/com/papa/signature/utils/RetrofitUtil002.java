@@ -3,8 +3,6 @@ package com.papa.signature.utils;
 import android.util.Log;
 
 import com.papa.signature.model.Config;
-import com.papa.signature.model.IpConfigBean;
-import com.papa.signature.model.local.IpCofigDao;
 import com.papa.signature.model.remote.PAPAServiceAPI;
 
 import java.io.IOException;
@@ -53,13 +51,13 @@ public class RetrofitUtil002 {
         if (retrofitUtil == null) {
             synchronized (RetrofitUtil002.class) {
                 if (null == retrofitUtil) {
-                    IpCofigDao ipCofigDao = IpCofigDao.getInstance();
-                    IpConfigBean ipConfigBean = ipCofigDao.selObject(1);
-                    if (ipConfigBean != null) {
-                        retrofitUtil = new RetrofitUtil002(ipConfigBean.getBaseUrl());
-                    } else {
-                        retrofitUtil = new RetrofitUtil002(Config.BASEURL);
-                    }
+//                    IpCofigDao ipCofigDao = IpCofigDao.getInstance();
+//                    IpConfigBean ipConfigBean = ipCofigDao.selObject(1);
+//                    if (ipConfigBean != null) {
+//                        retrofitUtil = new RetrofitUtil002(ipConfigBean.getBaseUrl());
+//                    } else {
+                    retrofitUtil = new RetrofitUtil002(Config.BASEURL);
+//                    }
                 }
             }
         }

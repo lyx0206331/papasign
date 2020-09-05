@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
@@ -88,7 +87,7 @@ public class AdvertisingActivity extends BaseActivity<ActivityAdvertisingBinding
      */
     private void initAD() {
         Map<String, Object> map = new HashMap<>();
-        map.put("screen_id", android_id);
+        map.put("device_no", android_id);
         Log.e("android_id", android_id);
         RetrofitUtil002.getInstance().getAutoAPIService().getAd(map).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
@@ -203,7 +202,7 @@ public class AdvertisingActivity extends BaseActivity<ActivityAdvertisingBinding
     }
 
     public void gotoSignature() {
-        android_id = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
+        android_id = ExampleUtil.getDeviceId(this);
         Log.i("URL", "ANDROID_ID=" + android_id);
         JPushInterface.setAlias(this, 0, android_id);
     }

@@ -110,7 +110,7 @@ public class SignaTureActivity extends AppCompatActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("business_id", messageBody.getBusiness_id());
         map.put("trade_type_id", messageBody.getTrade_type_id());
-        RetrofitUtil002.getInstance().getAutoAPIService().getProtoolConf("Authorization=" + messageBody.getAuthorization(), map)
+        RetrofitUtil002.getInstance().getAutoAPIService().getProtoolConf(messageBody.getAuthorization(), map)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new BaseObserver<ProtocolRes>(SignaTureActivity.this) {
@@ -223,7 +223,7 @@ public class SignaTureActivity extends AppCompatActivity {
         List<File> files = new ArrayList<>();
         files.add(photo);
         HashMap<String, String> map = new HashMap<>();
-        map.put("picname", "protocolImg");
+        map.put("image_path", "member_agreement");
         if (sta == 1) {
             createPopupWindow();
         }
@@ -379,12 +379,12 @@ public class SignaTureActivity extends AppCompatActivity {
         ArrayList<MultipartBody.Part> parts = new ArrayList<>();
         for (int i = 0; i < files.size(); i++) {
             File file = files.get(i);
-            RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+            RequestBody requestFile = RequestBody.create(MediaType.parse("image/jpg"), file);
             //服务器上的文件参数  name   filename
-            MultipartBody.Part jokeFile = MultipartBody.Part.createFormData("image_path", "member_agreement", requestFile);
+            MultipartBody.Part jokeFile = MultipartBody.Part.createFormData("image", file.getName(), requestFile);
             parts.add(jokeFile);
         }
-        RetrofitUtil003.getInstance().getAutoAPIService().uploadFile(cookie, mapStr, parts)
+        RetrofitUtil003.getInstance().getAutoAPIService().uploadFile(messageBody.getAuthorization(), mapStr, parts)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseObserver<PictureRes>(SignaTureActivity.this) {
@@ -430,18 +430,26 @@ public class SignaTureActivity extends AppCompatActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("agreement_id", messageBody.getAgreement_id());
 //        map.put("token", messageBody.getToken());
-        map.put("device_id", ExampleUtil.getDeviceId(this));
+        map.put("device_no", ExampleUtil.getDeviceId(this));
         map.put("images", images);
         map.put("signature", signature);
-        RetrofitUtil002.getInstance().getAutoAPIService().update(map).observeOn(AndroidSchedulers.mainThread())
+        map.put("business_id", messageBody.getBusiness_id());
+        RetrofitUtil002.getInstance().getAutoAPIService().update(messageBody.getAuthorization(), map).observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
                 .subscribe(new BaseObserver<ResponseBody>(SignaTureActivity.this) {
                     @Override
                     protected void onSuccees(ResponseBody responseBody) throws Exception {
                         String string = responseBody.string();
                         JSONObject jsonObject = new JSONObject(string);
-                        boolean is_error = jsonObject.getBoolean("is_error");
-                        initCud();
+                        int state = jsonObject.getInt("code");
+                        if (state == 200) {
+                            initCud();
+                        } else {
+                            Toast.makeText(SignaTureActivity.this, jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            if (popupWindow != null && popupWindow.isShowing()) {
+                                popupWindow.dismiss();
+                            }
+                        }
                     }
 
                     @Override

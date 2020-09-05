@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.papa.signature.R;
 import com.papa.signature.model.IpConfigBean;
-import com.papa.signature.model.local.IpCofigDao;
+import com.papa.signature.utils.SpUtil;
 
 /**
  * @author PAPA-GuoBa
@@ -25,14 +25,14 @@ public class IPConfigSetActivity extends AppCompatActivity {
     private EditText imgIpT;
     private EditText baseIpT;
     private Button saveSet;
-    private IpCofigDao ipCofigDao;
+//    private IpCofigDao ipCofigDao;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sethttps_ip);
-        ipCofigDao = IpCofigDao.getInstance();
-        ipConfigBean = ipCofigDao.selObject(1);
+//        ipCofigDao = IpCofigDao.getInstance();
+//        ipConfigBean = ipCofigDao.selObject(1);
         initView();
         action();
     }
@@ -45,17 +45,18 @@ public class IPConfigSetActivity extends AppCompatActivity {
                 String baseIp = baseIpT.getText().toString().trim();
                 if (imgIp != null && baseIp != null) {
                     long code = 0;
-                    if (ipConfigBean == null) {
-                        ipConfigBean = new IpConfigBean();
-                        ipConfigBean.setBaseUrl(baseIp);
-                        ipConfigBean.setImgUrl(imgIp);
-                        code = ipCofigDao.addObject(ipConfigBean);
-                    } else {
-                        ipConfigBean.setBaseUrl(baseIp);
-                        ipConfigBean.setImgUrl(imgIp);
-                        code = ipCofigDao.upData(ipConfigBean);
-                    }
-                    if (code == 1) {
+//                    if (ipConfigBean == null) {
+//                        ipConfigBean = new IpConfigBean();
+//                        ipConfigBean.setBaseUrl(baseIp);
+//                        ipConfigBean.setImgUrl(imgIp);
+//                        code = ipCofigDao.addObject(ipConfigBean);
+//                    } else {
+//                        ipConfigBean.setBaseUrl(baseIp);
+//                        ipConfigBean.setImgUrl(imgIp);
+//                        code = ipCofigDao.upData(ipConfigBean);
+//                    }
+                    boolean success = SpUtil.getInstance().saveHost(baseIp, imgIp);
+                    if (success) {
                         Toast.makeText(IPConfigSetActivity.this, "地址设置成功，重新启动app才能生效！", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(IPConfigSetActivity.this, "地址设置失败", Toast.LENGTH_SHORT).show();
@@ -72,6 +73,9 @@ public class IPConfigSetActivity extends AppCompatActivity {
         imgIpT = findViewById(R.id.imgIp);
         baseIpT = findViewById(R.id.baseIp);
         saveSet = findViewById(R.id.saveSet);
+
+        imgIpT.setText(SpUtil.getInstance().getImgHost());
+        baseIpT.setText(SpUtil.getInstance().getApiHost());
     }
 
 

@@ -1,6 +1,6 @@
 package com.papa.signature.model;
 
-import com.papa.signature.BuildConfig;
+import com.papa.signature.utils.SpUtil;
 
 /**
  * @author PAPA-GuoBa
@@ -9,8 +9,8 @@ import com.papa.signature.BuildConfig;
  * @createdate 2019/9/26 13:55
  */
 public class Config {
-    public static final String BASEURL = BuildConfig.DEBUG ? "http://api.ppdev.fun:8180" : "http://003.os.nuguo.cn/";
-    public static final String BASEURLIMG = BuildConfig.DEBUG ? "http://api.ppdev.fun:8180" : "http://sd.papasports.com.cn/";
+    public static final String BASEURL = SpUtil.getInstance().getApiHost();
+    public static final String BASEURLIMG = SpUtil.getInstance().getImgHost();
 
 
 //    public static   final  String BASEURL_="http://spapa.wicp.net:5103/";

@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.Settings;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.widget.Toast;
@@ -123,12 +124,16 @@ public class ExampleUtil {
         try {
             Pattern p = Pattern.compile("[\\x20-\\x7E]+");
             return p.matcher(string).matches();
-        } catch (Throwable e){
+        } catch (Throwable e) {
             return true;
         }
     }
 
-    public static String getDeviceId(Context context) {
+    public static String getJPushUuid(Context context) {
         return JPushInterface.getUdid(context);
+    }
+
+    public static String getDeviceId(Context context) {
+        return Settings.System.getString(context.getContentResolver(), Settings.System.ANDROID_ID);
     }
 }

@@ -36,7 +36,7 @@ public interface PAPAServiceAPI {
      */
     @POST("base/images/upload")
     @Multipart
-    Observable<PictureRes> uploadFile(@Header("cookie") String cookie, @QueryMap Map<String, String> map, @Part List<MultipartBody.Part> parts);
+    Observable<PictureRes> uploadFile(@Header("Authorization") String authorization, @QueryMap Map<String, String> map, @Part List<MultipartBody.Part> parts);
 
 
     /**
@@ -47,19 +47,20 @@ public interface PAPAServiceAPI {
      * @return
      */
     @FormUrlEncoded
-    @POST("setting/stadiumConfig/getProtocolConf")
+    @POST("cfg/cfgAgreement/detail")
     Observable<ProtocolRes> getProtoolConf(@Header("Authorization") String authorization, @FieldMap Map<String, Object> maps);
 
 
     /**
      * 更新协议成功后 返回首页
      *
+     * @param authorization
      * @param maps
      * @return
      */
     @FormUrlEncoded
     @POST("member/memberCard/addAgreementImages")
-    Observable<ResponseBody> update(@FieldMap Map<String, Object> maps);
+    Observable<ResponseBody> update(@Header("Authorization") String authorization, @FieldMap Map<String, Object> maps);
 
 
     /**
