@@ -1,12 +1,12 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.Raizlabs.DBFlow:dbflow:4.2.4@aar">
     <ANNOTATIONS>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d19ca1357614b9d7a7f6f3488b4a5318/jetified-dbflow-4.2.4/annotations.zip!/" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dd78d65e69e5fff2cd4e9b1dda0d2354/jetified-dbflow-4.2.4/annotations.zip!/" />
     </ANNOTATIONS>
     <CLASSES>
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d19ca1357614b9d7a7f6f3488b4a5318/jetified-dbflow-4.2.4/AndroidManifest.xml" />
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d19ca1357614b9d7a7f6f3488b4a5318/jetified-dbflow-4.2.4/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d19ca1357614b9d7a7f6f3488b4a5318/jetified-dbflow-4.2.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dd78d65e69e5fff2cd4e9b1dda0d2354/jetified-dbflow-4.2.4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dd78d65e69e5fff2cd4e9b1dda0d2354/jetified-dbflow-4.2.4/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dd78d65e69e5fff2cd4e9b1dda0d2354/jetified-dbflow-4.2.4/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

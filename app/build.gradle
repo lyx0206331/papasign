@@ -7,8 +7,8 @@ android {
         applicationId "com.papa.signature"
         minSdkVersion 17
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 2
+        versionName "1.0.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         ndk {
             //选择要添加的对应 cpu 类型的 .so 库。
@@ -20,8 +20,19 @@ android {
     buildTypes {
         debug{}
         release {
-            minifyEnabled false
+            minifyEnabled true
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            applicationVariants.all { variant ->
+                variant.outputs.all { output ->
+                    def fileName = "协议签_v${defaultConfig.versionName}_${releaseTime()}.apk"
+                    outputFileName = fileName
+                }
+
+            }
         }
     }
     repositories {
@@ -32,6 +43,11 @@ android {
         enabled = true
     }
 }
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
+}
+
 def dbFlow_version = "4.2.4"
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
