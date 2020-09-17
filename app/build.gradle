@@ -20,10 +20,10 @@ android {
     buildTypes {
         debug{}
         release {
-            minifyEnabled true
-            zipAlignEnabled true
+            minifyEnabled false
+            zipAlignEnabled false
             // 移除无用的resource文件
-            shrinkResources true
+            shrinkResources false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             applicationVariants.all { variant ->
@@ -39,8 +39,8 @@ android {
 
     }
 
-    dataBinding{
-        enabled = true
+    buildFeatures{
+        dataBinding = true
     }
 }
 
