@@ -5,7 +5,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -17,8 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.papa.signature.R;
 import com.papa.signature.utils.ExampleUtil;
 import com.papa.signature.utils.PackageUtils;
-
-import cn.jpush.android.api.JPushInterface;
+import com.papa.signature.utils.SpUtil;
 
 /**
  * @author PAPA-GuoBa
@@ -33,6 +31,7 @@ public class DeviceInfoActivity extends AppCompatActivity {
     private TextView versionCodeT;
     private TextView versionNameT;
     private TextView setIpText;
+    private TextView tvRegistationID;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,20 +44,35 @@ public class DeviceInfoActivity extends AppCompatActivity {
      * view的初始化
      */
     private void initView() {
-        final String ANDROID_ID = Settings.System.getString(getContentResolver(), Settings.System.ANDROID_ID);
+        final String ANDROID_ID = ExampleUtil.getDeviceId(this);
         Log.i("URL", "ANDROID_ID=" + ANDROID_ID);
 //        JPushInterface.setAlias(this, 5555, ANDROID_ID);
         deviceID = findViewById(R.id.deviceID);
+        tvRegistationID = findViewById(R.id.tvRegistationID);
         appNameT = findViewById(R.id.appName);
         versionCodeT = findViewById(R.id.versionCode);
         versionNameT = findViewById(R.id.versionName);
         deviceID.setText("设备唯一ID：" + ANDROID_ID);
+        final String regId = SpUtil.getInstance().getRegistrationID();
+        tvRegistationID.setText("RegistationID:" + regId);
         //长按复制用
         final ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         deviceID.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 cmb.setPrimaryClip(ClipData.newPlainText(null, ANDROID_ID));//参数一：标签，可为空，参数二：要复制到剪贴板的文本
+                if (cmb.hasPrimaryClip()) {
+                    cmb.getPrimaryClip().getItemAt(0).getText();
+                }
+                Toast.makeText(DeviceInfoActivity.this, "已复制", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
+
+        tvRegistationID.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                cmb.setPrimaryClip(ClipData.newPlainText(null, regId));//参数一：标签，可为空，参数二：要复制到剪贴板的文本
                 if (cmb.hasPrimaryClip()) {
                     cmb.getPrimaryClip().getItemAt(0).getText();
                 }

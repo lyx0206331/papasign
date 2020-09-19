@@ -52,4 +52,15 @@ public class SpUtil {
     public String getImgHost() {
         return MyApplication.getInstance().getSharedPreferences("ipConfig", Context.MODE_PRIVATE).getString("img_host", "http://192.168.0.1");
     }
+
+    public boolean saveRegistrationID(String registrationID) {
+        SharedPreferences sp = MyApplication.getInstance().getSharedPreferences("ipConfig", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("registration_id", registrationID);
+        return editor.commit();
+    }
+
+    public String getRegistrationID() {
+        return MyApplication.getInstance().getSharedPreferences("ipConfig", Context.MODE_PRIVATE).getString("registration_id", "");
+    }
 }

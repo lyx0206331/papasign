@@ -87,6 +87,18 @@
             android:textSize="18sp" />
 
         <TextView
+            android:id="@+id/tvRegistationID"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:paddingLeft="40dp"
+            android:text="RegistationID："
+            android:textColor="#595959"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/setIP"
             android:layout_width="match_parent"
             android:layout_height="50dp"

@@ -5,12 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.papa.signature.AdvertisingActivity;
 import com.papa.signature.utils.ExampleUtil;
+import com.papa.signature.utils.SpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -39,6 +39,7 @@ public class MyReceiver extends BroadcastReceiver {
 			if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
 				String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
 				Logger.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
+				SpUtil.getInstance().saveRegistrationID(regId);
 				//send the Registration Id to your server...
 
 			} else if (JPushInterface.ACTION_MESSAGE_RECEIVED.equals(intent.getAction())) {
